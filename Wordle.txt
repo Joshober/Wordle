@@ -1,0 +1,46 @@
+import random
+
+# List of words for the game
+word_list = ["apple", "banana", "cherry", "grape", "lemon", "orange", "pear", "plum"]
+
+# Select a random word from the list
+target_word = random.choice(word_list)
+target_word = target_word.lower()  # Convert the target word to lowercase
+
+# Set the maximum number of guesses
+max_guesses = 5
+current_guesses = 0
+
+# Initialize a list to store the guessed letters
+guessed_letters = []
+
+# Game loop
+while current_guesses < max_guesses:
+    # Ask the player for a guess
+    guess = input("Enter your guess (5-letter word): ").lower()
+
+    # Check if the guess is valid
+    if len(guess) != 5:
+        print("Please enter a 5-letter word.")
+        continue
+
+    # Check if the guess is correct
+    if guess == target_word:
+        print("Congratulations! You guessed the word:", target_word)
+        break
+    else:
+        current_guesses += 1
+        guessed_letters.clear()  # Clear the list for a new guess
+        for i in range(5):
+            if guess[i] == target_word[i]:
+                guessed_letters.append("🟩")  # Correct letter in the correct position
+            elif guess[i] in target_word:
+                guessed_letters.append("🟨")  # Correct letter in the wrong position
+            else:
+                guessed_letters.append("⬛")  # Incorrect letter
+        print(" ".join(guessed_letters))  # Display emojis for the current guess
+
+# If the player runs out of guesses
+if current_guesses == max_guesses:
+    print("You ran out of guesses. The word was:", target_word)
+
